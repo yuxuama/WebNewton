@@ -5,15 +5,48 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Newton Simulation</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" type="text/css" href="static/style.css">
 </head>
 <body>
-    <canvas id="glCanvas" width="1410" height="740"></canvas>
+    <div id="content">
+        <div id="webgl-content">
+            <canvas id="glCanvas"></canvas>
+        </div>
 
-    <div id="control">
-        <button type="button" onclick="OnPlay();">Play Animation</button>
-        <button type="button" onclick="OnResume();">Resume Animation</button>
+
+        <div id="control">
+            <h3 id="title">Animation Menu (in construction)</h3>
+            
+            <h4 href="" onclick="Appear('addbody');">Add body</h4></li>
+            <div id="addbody" class="hide">
+                <label for="x">x</label>
+                <input id="x" type="number"/> <br/>
+                <label for="y">y</label> 
+                <input id="y" type="number"/> <br/>
+                <label for="vx">vitesse en x</label>
+                <input id="vx" type="number"/> <br/>
+                <label for="vy">vitesse en y</label>
+                <input id="vy" type="number"/> <br/>
+
+                <button id="add-button">Add body</button>
+            </div>
+            <h4 href="" onclick="Appear('state');">State</h4></li>  
+            <div id="state" class="hide">
+
+            </div>
+            <h4 href="" onclick="Appear('anim-param');">Animation parameters</h4></li> 
+            <div id="anim-param" class="hide">
+                <h4 id="speed"></h4>
+                <label for="anim-speed">Vitesse d'animation</label>
+                <input id="anim-speed" type="number"/>
+                <button type="button" onclick="changeSpeed();">Changer</button>
+            </div>
+
+            <button class="control-button" type="button" onclick="OnPlay();">Play Animation</button>
+            <button class="control-button" type="button" onclick="OnResume();">Resume Animation</button>
+        </div>
     </div>
-
+    
 
     <script src="https://webglfundamentals.org/webgl/resources/webgl-utils.js"></script>
     <script src="graphics.js"></script>
@@ -47,7 +80,7 @@
     <script>
         //Creating the world of the simulation
         var masses = [10.0, 10.0, 10.0];
-        var xs = [1000, 200, 600];
+        var xs = [500, 200, 600];
         var ys = [200, 200, 500];
         var vx = [0, 0, 0.02];
         var vy = [0, 0, 0];
@@ -56,17 +89,36 @@
     </script>
 
     <script>
-
         function OnPlay(){            
             changeAnimating();
             resetTimeAnimation();
-            requestAnimationFrame(animateBodies)         
+            requestAnimationFrame(animateBodies);     
             
         }
 
         function OnResume(){
             changeAnimating();
             cancelAnimationFrame(getReqID());
+        }
+
+        function Appear(id){
+            var element = document.getElementById(id);
+            if(element.style.display === "none"){
+                element.style.display = "block";
+            }else {
+                element.style.display = "none";
+            }
+            if(id == "anim-param"){
+                var text = document.getElementById("speed");
+                text.innerHTML = "Current speed is: " + getAnimSpeed().toString();
+            }
+        }
+
+        function changeSpeed(){
+            var inputValue = document.getElementById("anim-speed").value;
+            setAnimSpeed(inputValue)
+            var text = document.getElementById("speed");
+                text.innerHTML = "Current speed is: " + inputValue.toString();
         }
     </script>
 </body>

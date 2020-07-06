@@ -1,7 +1,6 @@
 
 const precision = 10;
 const radius = 20;
-const animationSpeed = 100;
 
 var bodies;
 var gl;
@@ -11,6 +10,7 @@ var beforeTime = 0;
 var animating = false;
 var reqID; 
 var pausedTime = Date.now();
+var animationSpeed = 100;
 
 function init(){
     gl = document.querySelector("#glCanvas").getContext("webgl");
@@ -53,7 +53,6 @@ function renderBodies(){
 
 function animateBodies(now){
     now *= 0.001 * animationSpeed;
-    console.log(now)
     var delta = now - beforeTime;
     beforeTime = now;
 
@@ -69,8 +68,7 @@ function animateBodies(now){
 }
 
 function resetTimeAnimation(){
-    beforeTime = beforeTime + (Date.now()-pausedTime)/10;
-    console.log("BEfore time updated at", beforeTime)
+    beforeTime = beforeTime + (Date.now()-pausedTime) * 0.001 * animationSpeed;
 }
 
 function changeAnimating(){
@@ -86,5 +84,13 @@ function isAnimating(){
 
 function getReqID(){
     return reqID;
+}
+
+function getAnimSpeed(){
+    return animationSpeed;
+}
+
+function setAnimSpeed(value){
+    animationSpeed = value;
 }
     

@@ -2,8 +2,7 @@
 
 function initWebGl(gl) {
     //Clearing
-    gl.clearColor(0.0, 0.0, 0.0, 1.0);
-    gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
+    clear(gl)
 
     //SHADERS
     const vsSource = document.querySelector("#vertex-shader-2d").textContent;
@@ -22,23 +21,6 @@ function initWebGl(gl) {
     };
 
     return programInfo;
-
-
-    /*creating circle pos 
-    var precision = 10;
-    var centerx = gl.canvas.width/2;
-    var centery = gl.canvas.height/2;
-    var radius = 20;
-    var delta = 2*Math.PI/precision;
-    var positions = new Array(6*precision)
-    for(n=0; n<precision; n++){
-        positions[6*n] = centerx;
-        positions[6*n+1] = centery;
-        positions[6*n+2] = radius*Math.cos(n*delta) + centerx;
-        positions[6*n+3] = radius*Math.sin(n*delta) + centery;
-        positions[6*n+4] = radius*Math.cos((n+1)*delta) + centerx;
-        positions[6*n+5] = radius*Math.sin((n+1)*delta) + centery;  
-    }*/
 }
 
 function initShaderProgram(gl, vsource, fsource){
